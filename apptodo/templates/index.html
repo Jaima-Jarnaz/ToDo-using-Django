@@ -10,56 +10,26 @@
     <title>Do your daily work</title>
   </head>
   <body>
-   <div class="container pt-5">
-       <div class="form-control text-center">
+   <div class="container pt-5 bg-light">
+       <div class="text-center mb-5 p-3" style="border: 1px solid rgb(141, 189, 221);">
         <form method="post" action="/" class="">
             {% csrf_token %}
             {{form}}
             <input type="submit" value="Save" class="btn btn-success m-3">
        </form>
        </div>
-       <div class="row justify-content-center">
+
+       <div class="row container justify-content-center">
             {% for task in tasks %}
-            <div class="list-group list-group-flush col-6">
-                <a href="/?workid={{task.id}}" class="list-group-item list-group-item-action text-center">{{task.title}}</a>
+            <div class="list-group list-group-flush col-10">
+                <a href="{% url 'update' task.id %}" class="list-group-item list-group-item-action text-center">{{task.title}}</a>
             </div> 
-            <div class="col-6">
-                <a href="/?workid={{task.id}}" class="btn btn-warning btn-sm mt-2" name="update" data-toggle="modal" data-target="#exampleModal">Update</a>
-                <a href="/?workid={{task.id}}" class="btn btn-danger btn-sm mt-2">Delete</a>
-            </div> 
+            <div class="col-2">
+                <a href="{% url 'update' task.id %}" class="btn btn-warning btn-sm mt-2" >Update</a>
+                <a href="{% url 'update' task.id %}" class="btn btn-danger btn-sm mt-2">Delete</a>           
+             </div> 
              {% endfor %}
         </div> 
-
-        <!-- Button trigger modal -->
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-         <form method="post" action="/" class="">
-            {% csrf_token %}
-            {{form.dailywork}}
-            <input type="submit" value="Save" class="btn btn-success m-3">
-       </form>
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 
     </div>
 
