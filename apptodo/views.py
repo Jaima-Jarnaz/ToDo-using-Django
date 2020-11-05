@@ -35,10 +35,19 @@ class Index(View):
 def update(request,workid):
         #work_id=request.GET.get('workid')
         form=Task.objects.get(id=workid)
-        title=form.cleaned_data['title']
-        reg=Task(title=title)
-        reg.save()
+        if request.method=='POST':
+            if form:
+                c=request.POST['title']
+                b=Task(title=c)
+                b.update()
         return render(request,'update.html',{'form':form})
+
+
+def delete_task(request,workid):
+    delete_item=Task.objects.get(id=workid)
+    delete_item.delete()
+    return redirect('/')
+
     
 
     
